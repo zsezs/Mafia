@@ -6,32 +6,39 @@ using SocketIO;
 
 public class LevelManager : MonoBehaviour {
 
-	public SocketIOComponent socket;
+	static public GameObject go;
+	static public SocketIOComponent socket;
 
-	public string room;
+	static public string room;
+
+	class data1{ public string room;}
+
+	public void Awake(){
+
+		go = GameObject.Find("SocketIO");
+    	
+		socket = go.GetComponent<SocketIOComponent>();
+
+		DontDestroyOnLoad(go);
+		DontDestroyOnLoad(socket);
+	}
 
 	public void Start(){
 
-		GameObject go = GameObject.Find("SocketIO");
-    	
-		socket = go.GetComponent<SocketIOComponent>();
-		
 		socket.On("join_r", (SocketIOEvent e) => {
-			
-			room = e.room;
 
-			SceneManager.LoadScene("Chat");
-		});
+			JSONObject j = new JSONObject(e.data.ToString());
 
-		socket.On("message_r", (SocketIOEvent e) => {
-
-			ShowMessage(e.name, e.message);
+			room = j.GetField("room").ToString();
+			room = room.Substring(1,room.Length-2);
 		});
 	}
 
 	public void LoadLevel(string name){
 
 		JoinRoom(name);
+
+		SceneManager.LoadScene("Chat");
 	}
 
 	public void QuitRequest(){
@@ -46,23 +53,5 @@ public class LevelManager : MonoBehaviour {
 		data["name"] = name;
 
        	socket.Emit("join", new JSONObject(data));
-	}
-
-	public void SendMessage(string name, string message, string room){
-
-		Dictionary<string, string> data = new Dictionary<string, string>();
-       	
-		data["name"] = name;
-		data["room"] = room;
-		data["message"] = message;
-
-		socket.Emit("message", new JSONObject(data));
-	}
-
-	public void ShowMessage(string name, string message){
-
-		//create new message card
-
-
 	}
 }
