@@ -23,12 +23,17 @@ public class ChatManager : MonoBehaviour {
 	
 
 	void Update () {
-        if(chatBox.text != "")
+
+        
+
+        if (chatBox.text != "")
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 SendMessageToChat(username + ": "+ chatBox.text, Message.MessageType.playerMessage);
+                GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition = 0.0f;
                 chatBox.text = "";
+                
             }
             
 
@@ -42,8 +47,12 @@ public class ChatManager : MonoBehaviour {
         if (!chatBox.isFocused)
         {
             if (Input.GetKeyDown(KeyCode.Space))
+            {
                 SendMessageToChat("You pressed the space key!", Message.MessageType.info);
-            Debug.Log("Space");
+                GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition = 0.0f;
+            }
+          
+
         }
         
 	}
