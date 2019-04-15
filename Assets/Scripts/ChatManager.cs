@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using SocketIO;
@@ -11,8 +12,8 @@ public class ChatManager : MonoBehaviour {
     public int maxMessages = 25;
     public GameObject chatPanel, textObject;
     public InputField chatBox;
-    public GameObject go;
-	public SocketIOComponent socket;
+    ///public GameObject go;
+	///public SocketIOComponent socket;
     public Color playerMessage, info;
 
     [SerializeField]
@@ -20,22 +21,23 @@ public class ChatManager : MonoBehaviour {
 
     public void Awake(){
 
-        go = LevelManager.go;
+        //go = LevelManager.go;
 
-        socket = go.GetComponent<SocketIOComponent>();
+        //socket = go.GetComponent<SocketIOComponent>();
 
-        DontDestroyOnLoad(go);
-        DontDestroyOnLoad(socket);
+        //DontDestroyOnLoad(go);
+        //DontDestroyOnLoad(socket);
 	}
 
     public void start(){
 
-        this.socket = LevelManager.socket;
+        //this.socket = LevelManager.socket;
 
             this.room = LevelManager.room;
 
-            LevelManager.socket.On("message_r", (SocketIOEvent e) => {
+            /*LevelManager.socket.On("message_r", (SocketIOEvent e) => {
 
+                Debug.Log("message_r");
 
                 JSONObject j = new JSONObject(e.data.ToString());
 
@@ -43,8 +45,17 @@ public class ChatManager : MonoBehaviour {
 
                 string message = j.GetField("message").ToString();
 
+                Debug.Log(message);
+
                 ShowMessage(name, message);
-            });
+            });*/
+
+            
+
+            /* LevelManager.socket.On("itsCourt", (SocketIOEvent e)=>{
+
+                SceneManager.LoadScene("Court");
+            });*/
     }
     
     public void SendMessageToChat(string text, string room){
@@ -56,11 +67,9 @@ public class ChatManager : MonoBehaviour {
         
 		data["message"] = text;
 
-        Debug.Log(LevelManager.room);
-
         data["room"] = LevelManager.room;
 
-		socket.Emit("send_message", new JSONObject(data));
+		LevelManager.socket.Emit("send_message", new JSONObject(data));
     }
 
 	public void ShowMessage(string name, string text){

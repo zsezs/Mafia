@@ -11,15 +11,13 @@ public class LevelManager : MonoBehaviour {
 
 	static public string room;
 
-	class data1{ public string room;}
-
 	public void Awake(){
 
 		go = GameObject.Find("SocketIO");
     	
 		socket = go.GetComponent<SocketIOComponent>();
 
-		DontDestroyOnLoad(go);
+		//DontDestroyOnLoad(go);
 		DontDestroyOnLoad(socket);
 	}
 
@@ -31,14 +29,27 @@ public class LevelManager : MonoBehaviour {
 
 			room = j.GetField("room").ToString();
 			room = room.Substring(1,room.Length-2);
+
+			SceneManager.LoadScene("Chat");
+		});
+
+		socket.On("message_r", (SocketIOEvent e) => {
+
+			Debug.Log("got message");
+
+			JSONObject j = new JSONObject(e.data.ToString());
+
+			string name = j.GetField("name").ToString();
+
+			string message = j.GetField("message").ToString();
+
+			Debug.Log(message);
 		});
 	}
 
 	public void LoadLevel(string name){
 
 		JoinRoom(name);
-
-		SceneManager.LoadScene("Chat");
 	}
 
 	public void QuitRequest(){
