@@ -28,24 +28,24 @@ public class ChatManager : MonoBehaviour {
         DontDestroyOnLoad(socket);
 	}
 
-	void Start () {
+    public void start(){
 
         this.socket = LevelManager.socket;
 
-        this.room = LevelManager.room;
+            this.room = LevelManager.room;
 
-        LevelManager.socket.On("message_r", (SocketIOEvent e) => {
+            LevelManager.socket.On("message_r", (SocketIOEvent e) => {
 
 
-            JSONObject j = new JSONObject(e.data.ToString());
+                JSONObject j = new JSONObject(e.data.ToString());
 
-            string name = j.GetField("name").ToString();
+                string name = j.GetField("name").ToString();
 
-            string message = j.GetField("message").ToString();
+                string message = j.GetField("message").ToString();
 
-            ShowMessage(name, message);
-        });
-	}
+                ShowMessage(name, message);
+            });
+    }
     
     public void SendMessageToChat(string text, string room){
 
@@ -86,16 +86,20 @@ public class ChatManager : MonoBehaviour {
 	void Update () {
         if(chatBox.text != "")
         {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
+            if (Input.GetKeyDown(KeyCode.Return)){
+
                 SendMessageToChat(chatBox.text, this.room);
+                GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition = 0.0f;
                 chatBox.text = "";
             }
         }
         else
         {
-            if (!chatBox.isFocused && Input.GetKeyDown(KeyCode.Return))
+            if (!chatBox.isFocused && Input.GetKeyDown(KeyCode.Return)){
+                
+                GameObject.Find("Scroll View").GetComponent<ScrollRect>().verticalNormalizedPosition = 0.0f;
                 chatBox.ActivateInputField();
+            }
         }
         
 	}
