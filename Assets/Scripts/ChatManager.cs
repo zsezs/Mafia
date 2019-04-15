@@ -104,6 +104,7 @@ public class ChatManager : MonoBehaviour {
         
 	}
 
+
     Color MessageTypeColor(Message.MessageType messageType)
     {
         Color color = info;
