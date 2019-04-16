@@ -12,8 +12,8 @@ public class ChatManager : MonoBehaviour {
     public int maxMessages = 25;
     public GameObject chatPanel, textObject;
     public InputField chatBox;
-    ///public GameObject go;
-	///public SocketIOComponent socket;
+    public GameObject go;
+	public SocketIOComponent socket;
     public Color playerMessage, info;
 
     [SerializeField]
@@ -21,15 +21,33 @@ public class ChatManager : MonoBehaviour {
 
     public void Awake(){
 
-        //go = LevelManager.go;
+        go = LevelManager.go;
 
-        //socket = go.GetComponent<SocketIOComponent>();
+        socket = go.GetComponent<SocketIOComponent>();
 
-        //DontDestroyOnLoad(go);
-        //DontDestroyOnLoad(socket);
+        DontDestroyOnLoad(go);
+        DontDestroyOnLoad(socket);
+
+        LevelManager.socket.On("message_r", (SocketIOEvent e) => {
+
+			JSONObject j = new JSONObject(e.data.ToString());
+
+			string name = j.GetField("name").ToString();
+
+			string message = j.GetField("message").ToString();
+
+            ShowMessage(name, message);             
+		});
+
+        LevelManager.socket.On("itsCourt", (SocketIOEvent e)=>{
+
+            SceneManager.LoadScene("Court");
+        });
 	}
 
     public void start(){
+
+        
 
         //this.socket = LevelManager.socket;
 

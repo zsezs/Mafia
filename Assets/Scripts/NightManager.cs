@@ -4,14 +4,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using SocketIO;
 
-public class CourtManager : MonoBehaviour
+public class NightManager : MonoBehaviour
 {
-
     void Awake(){
 
-        LevelManager.socket.On("itsNight", (SocketIOEvent e)=>{
-
-            SceneManager.LoadScene("Night");
+        LevelManager.socket.On("itsDay", (SocketIOEvent e)=>{
+            SceneManager.LoadScene("Chat");
         });
     }
 
