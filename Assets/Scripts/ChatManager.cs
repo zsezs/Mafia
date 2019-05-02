@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using SocketIO;
+using UnityEngine.Networking;
 
 public class ChatManager : MonoBehaviour {
 
@@ -43,37 +44,53 @@ public class ChatManager : MonoBehaviour {
 
             SceneManager.LoadScene("Court");
         });
+
+        LevelManager.socket.On("roles_ready", (SocketIOEvent e)=>{
+
+            Debug.Log("roles_ready");
+
+            WWWForm formData = new WWWForm();
+
+            formData.AddField("room", LevelManager.room);
+
+            string json = "{\"room\":\""+LevelManager.room+"\", \"name\":\"amir\"}";
+
+            StartCoroutine(PostRequest("http://127.0.0.1:3000/getRole", json));
+
+            Debug.Log("sent");
+        });
 	}
 
-    public void start(){
+    public IEnumerator PostRequest(string url, string json)
+    {
+        var uwr = new UnityWebRequest(url, "POST");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+
+        //Send the request then wait here until it returns
+        yield return uwr.SendWebRequest();
 
         
 
-        //this.socket = LevelManager.socket;
+        if (uwr.isNetworkError)
+        {
+            Debug.Log("Error While Sending: " + uwr.error);
+        }
+        else
+        {
+            JSONObject j = new JSONObject(uwr.downloadHandler.text);
 
-            this.room = LevelManager.room;
+			string role = j.GetField("role").ToString();
 
-            /*LevelManager.socket.On("message_r", (SocketIOEvent e) => {
+            //Debug.Log("role ->"+role+" -> "+role.length);
+        }
+    }
 
-                Debug.Log("message_r");
+    public void start(){
 
-                JSONObject j = new JSONObject(e.data.ToString());
 
-                string name = j.GetField("name").ToString();
-
-                string message = j.GetField("message").ToString();
-
-                Debug.Log(message);
-
-                ShowMessage(name, message);
-            });*/
-
-            
-
-            /* LevelManager.socket.On("itsCourt", (SocketIOEvent e)=>{
-
-                SceneManager.LoadScene("Court");
-            });*/
     }
     
     public void SendMessageToChat(string text, string room){
