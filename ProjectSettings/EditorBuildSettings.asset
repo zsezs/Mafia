@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Night.unity
     guid: 081efe585d78a524fb118fe558259406
+  - enabled: 1
+    path: Assets/_Scenes/Joining Room.unity
+    guid: 1875dd323ffbab94f96c1a16723877f0
   m_configObjects: {}

@@ -41,7 +41,13 @@ public class LevelManager : MonoBehaviour {
 		JoinRoom(name);
 	}
 
-	public void QuitRequest(){
+    public void MyLoadScene(string name)
+    {
+        Debug.Log("New Scene load: " + name);
+        SceneManager.LoadScene(name);
+    }
+
+    public void QuitRequest(){
 		Debug.Log ("Quit requested");
 		Application.Quit();
 	}
