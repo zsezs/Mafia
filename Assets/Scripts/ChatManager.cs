@@ -84,7 +84,7 @@ public class ChatManager : MonoBehaviour {
 
 			string role = j.GetField("role").ToString();
 
-            Debug.Log("role ->"+role+" -> "+role.length);
+            //Debug.Log("role ->"+role+" -> "+role.length);
         }
     }
 
