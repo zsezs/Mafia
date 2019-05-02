@@ -18,8 +18,12 @@ public class GodManager : MonoBehaviour
         
     }
 
-    public void onClick()
+    public void onClickToShow()
     {
         godPanel.SetActive(true);
+    }
+    public void onClickToInvisible()
+    {
+        godPanel.SetActive(false);
     }
 }
