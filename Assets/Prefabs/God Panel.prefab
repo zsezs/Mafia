@@ -389,7 +389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7647488354450013001
 RectTransform:
   m_ObjectHideFlags: 0
@@ -594,6 +594,7 @@ MonoBehaviour:
   unselectedPage: {fileID: 0}
   selectedPage: {fileID: 0}
   pageSelectionIcons: {fileID: 0}
+  _pageCount: 0
   _currentPage: 0
 --- !u!1 &7647488354762145271
 GameObject:
@@ -965,6 +966,15 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583990303645755590, guid: a610b46d9975ec347a55d706cdbb15e8,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Day 1 :
+
+        Mafia killed Alireza
+
+        Alireza roll was Police.'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a610b46d9975ec347a55d706cdbb15e8, type: 3}
