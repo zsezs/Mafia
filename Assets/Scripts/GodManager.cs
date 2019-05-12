@@ -53,6 +53,6 @@ public class GodManager : MonoBehaviour
         go.transform.localScale = new Vector3(1, 1, 1);
 
         ssr._pageCount++;
-        
+        ssr.SetPagePositions();
       }
 }
