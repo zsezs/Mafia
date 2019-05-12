@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using SocketIO;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
@@ -11,7 +12,9 @@ public class LevelManager : MonoBehaviour {
 
 	static public string room;
 
-	public void Awake(){
+    public InputField nameBox;
+
+    public void Awake(){
 
 		go = GameObject.Find("SocketIO");
     	
@@ -35,6 +38,26 @@ public class LevelManager : MonoBehaviour {
 			SceneManager.LoadScene("Chat");
 		});
 	}
+
+    public void Update()
+    {
+
+        if (nameBox.text != "")
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                JoinRoom(nameBox.text);
+                nameBox.text = "";
+            }
+        }
+        else
+        {
+            if (!nameBox.isFocused && Input.GetKeyDown(KeyCode.Return))
+            {
+                nameBox.ActivateInputField();
+            }
+        }
+    }
 
 	public void LoadLevel(string name){
 

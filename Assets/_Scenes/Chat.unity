@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914b8a75977ed47209fdf798a93ddac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameBox: {fileID: 0}
 --- !u!4 &316875834
 Transform:
   m_ObjectHideFlags: 0
@@ -898,7 +899,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2126782653}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.00000011888421
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1671,6 +1672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914b8a75977ed47209fdf798a93ddac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameBox: {fileID: 0}
 --- !u!224 &1640261205 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7572213921262664936, guid: d51298d56c5cacf4087f0679e80e6e0a,
