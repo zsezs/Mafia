@@ -10,7 +10,6 @@ public class ChatManager : MonoBehaviour {
 
     public string username;
     public string room;
-    public int maxMessages = 25;
     public GameObject chatPanel, textObject;
     public InputField chatBox;
     public GameObject go;
@@ -108,11 +107,6 @@ public class ChatManager : MonoBehaviour {
     }
 
 	public void ShowMessage(string name, string text){
-
-		if (messageList.Count >= maxMessages){
-            Destroy(messageList[0].textObject.gameObject);
-            messageList.Remove(messageList[0]);
-        }
 
         Message newMessage = new Message(name , text);
 

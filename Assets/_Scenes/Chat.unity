@@ -143,7 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   username: Alireza
   room: 
-  maxMessages: 25
   chatPanel: {fileID: 718243632}
   textObject: {fileID: 1613384932723068, guid: f9bcc83227d6c014690b6393760293ed, type: 3}
   chatBox: {fileID: 432344185}
@@ -899,7 +898,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2126782653}
   m_Direction: 2
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.00000011888421
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
